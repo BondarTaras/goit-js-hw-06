@@ -71,9 +71,73 @@ incrementButton.addEventListener("click", () => {
 });
 
 //!------------------------------------------------
-const nameInput = document.querySelector("#name-input");
 const nameOutput = document.querySelector("#name-output");
+const nameInput = document.querySelector("#name-input");
 
 nameInput.addEventListener("input", () => {
   nameOutput.textContent = nameInput.value.trim() || "Anonymous";
 });
+//!------------------------------------------------
+const input = document.querySelector("#validation-input");
+
+input.addEventListener("blur", () => {
+  const expectedLength = parseInt(input.getAttribute("data-length"));
+  const actualLength = input.value.length;
+
+  input.classList.remove("valid", "invalid");
+
+  if (actualLength === expectedLength) {
+    input.classList.add("valid");
+  } else {
+    input.classList.add("invalid");
+  }
+});
+
+//!------------------------------------------------
+const fontSizeControl = document.querySelector("#font-size-control");
+const text = document.querySelector("#text");
+
+fontSizeControl.addEventListener("input", () => {
+  const fontSize = fontSizeControl.value + "px";
+  text.style.fontSize = fontSize;
+});
+//!------------------------------------------------
+
+const loginForm = document.querySelector(".login-form");
+
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Перешкоджає перезавантаженню сторінки
+
+  const emailInput = loginForm.elements.email;
+  const passwordInput = loginForm.elements.password;
+
+  if (emailInput.value === "" || passwordInput.value === "") {
+    alert("Всі поля повинні бути заповнені!");
+  } else {
+    const formData = {
+      email: emailInput.value,
+      password: passwordInput.value,
+    };
+
+    console.log(formData);
+    loginForm.reset();
+  }
+});
+//!------------------------------------------------
+
+const widget = document.querySelector(".widget");
+const colorSpan = widget.querySelector(".color");
+const changeColorButton = widget.querySelector(".change-color");
+
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215)
+    .toString(16)
+    .padStart(6, "0")}`;
+}
+
+changeColorButton.addEventListener("click", () => {
+  const randomColor = getRandomHexColor();
+  document.body.style.backgroundColor = randomColor;
+  colorSpan.textContent = randomColor;
+});
+
